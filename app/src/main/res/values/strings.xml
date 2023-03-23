@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Test Project</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="re_password">Re-Password</string>
+    <string name="signOpt">Sign in if already have an account</string>
+    <string name="register">REGISTER</string>
+    <string name="sign_up_opt">or sign up with</string>
+    <string name="username">Username</string>
+    <string name="sign_up">Sign up</string>
+    <string name="login_with_google">login with google</string>
+    <string name="login_with_facebook">login with facebook</string>
+    <string name="login_with_twiiter">login with twiiter</string>
+    <string name="sign_up_if_you_dont_have_an_account">sign up if you dont have an account</string>
+</resources>
