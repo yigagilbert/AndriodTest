@@ -11,11 +11,11 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class ApiUtils {
-    final static String USADARA_BASE_URL="https://datausa.io/api/data?drilldowns=State&measures=Population&year=latest";
+//    final static String USADARA_BASE_URL="https://datausa.io/api/data?drilldowns=State&measures=Population&year=latest";
 
-    public static URL buildUrl(){
+    public static URL buildUrl(String baseUrl){
 
-        Uri urlStr = Uri.parse(USADARA_BASE_URL)
+        Uri urlStr = Uri.parse(baseUrl)
                 .buildUpon().build();
         URL url= null;
         try {

@@ -10,12 +10,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.pahappa.testproject.data.User;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
     String inputUserName;
     String inputEmail;
-    String inputPassWord;
+    String inputPassWord1;
+    String inputPassWord2;
+
+    //create an object to get user data.
+
 
 
     @Override
@@ -25,16 +34,13 @@ public class MainActivity extends AppCompatActivity {
 
         EditText username = (EditText) findViewById(R.id.username);
         EditText email = (EditText) findViewById(R.id.email);
-        EditText password = (EditText) findViewById(R.id.password);
-        TextView signOption = (TextView) findViewById(R.id.signOpt);
-
+        EditText password1 = (EditText) findViewById(R.id.password);
+        EditText password2 = (EditText) findViewById(R.id.repassword);
+        TextView switchToSecondActivity = (TextView) findViewById(R.id.signOpt);
         MaterialButton regbtn = (MaterialButton) findViewById(R.id.signupbtn);
 
-         inputUserName = String.valueOf(username.getText());
-         inputEmail =  String.valueOf(email.getText());
-         inputPassWord =  String.valueOf(password.getText());
 
-        TextView switchToSecondActivity = (TextView) findViewById(R.id.signOpt);
+        //To move to the sign in screen.
         switchToSecondActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,11 +48,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         regbtn.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View view) {
 
+                                          //get input
+                                          inputUserName = String.valueOf(username.getText());
+                                          inputEmail =  String.valueOf(email.getText());
+                                          inputPassWord1 =  String.valueOf(password1.getText());
+                                          inputPassWord2 =  String.valueOf(password2.getText());
+
+
+                                          //set user data to user model
+                                          User.setUsername(inputUserName);
+                                          User.setEmail(inputEmail);
+                                          User.setPassword(inputPassWord1);
+                                          switchActivities();
                                           Toast.makeText(MainActivity.this, "Registering done "+String.valueOf(username.getText()), Toast.LENGTH_SHORT).show();
                                       }
                                   }
@@ -57,11 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void switchActivities() {
         Intent switchActivityIntent = new Intent(this, LoginActivity.class);
-        switchActivityIntent.putExtra("username", inputUserName);
         startActivity(switchActivityIntent);
     }
 
-    private void reg(){
-
-    }
 }

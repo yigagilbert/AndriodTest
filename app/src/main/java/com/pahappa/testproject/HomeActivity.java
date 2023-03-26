@@ -1,6 +1,9 @@
 package com.pahappa.testproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,12 +33,14 @@ public class HomeActivity extends AppCompatActivity {
 
     EditText edcityName;
     Button btnSubmit;
+    Button navTodashBroad;
     TextView tvResult;
     TextView state;
     TextView year;
     TextView id;
     String cityName = null;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +52,17 @@ public class HomeActivity extends AppCompatActivity {
         state = findViewById(R.id.state);
         year = findViewById(R.id.Idyear);
         id = findViewById(R.id.Idstate);
+        navTodashBroad = findViewById(R.id.text_dashboard);
+
+        getSupportActionBar().setTitle("Home");
+
+        //add navigation to dashbroad.
+        navTodashBroad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switchToDashBroadFragement();
+            }
+        });
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +86,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void queryData(String cityName) throws IOException{
-        URL url = ApiUtils.buildUrl();
+        final String USADARA_BASE_URL="https://datausa.io/api/data?drilldowns=State&measures=Population&year=latest";
+        URL url = ApiUtils.buildUrl(USADARA_BASE_URL);
         new DataTask().execute(url);
     }
 
@@ -122,5 +139,11 @@ public class HomeActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    //to test my dashBroad.
+    private void switchToDashBroadFragement() {
+        Intent switchActivityIntent = new Intent(this, DashBroadActivity.class);
+        startActivity(switchActivityIntent);
     }
 }

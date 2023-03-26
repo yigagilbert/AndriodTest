@@ -12,4 +12,8 @@
     <string name="login_with_facebook">login with facebook</string>
     <string name="login_with_twiiter">login with twiiter</string>
     <string name="sign_up_if_you_dont_have_an_account">sign up if you dont have an account</string>
+    <string name="title_activity_dash_broad">DashBroadActivity</string>
+    <string name="title_home">Projects</string>
+    <string name="title_dashboard">Create Project</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

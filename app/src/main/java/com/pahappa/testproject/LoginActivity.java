@@ -10,20 +10,19 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
+import com.pahappa.testproject.data.User;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity {
         private EditText mUsernameEditText;
         private EditText mPasswordEditText;
         private MaterialButton mLoginButton;
+        User userObj = null;
+        String myUser;
+    String loginUsername;
+    String loginPassword;
+    String userUsername;
+    String userPassword;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -43,57 +42,28 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
 
+
+
             mLoginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Handle sign-in request
-                    String username = mUsernameEditText.getText().toString();
-                    String password = mPasswordEditText.getText().toString();
+                    loginUsername = mUsernameEditText.getText().toString();
+                    loginPassword = mPasswordEditText.getText().toString();
+                    userUsername =User.getUsername();
+                    userPassword = User.getPassword();
 
-                    URL url = null;
-                    HttpURLConnection conn = null;
+                    System.out.println("User Name: "+userUsername);
 
-                    try {
-                        url = new URL("https://172.105.109.154:8080/pcg/api/v1/Users/LoginUser");
-                    } catch (MalformedURLException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    try {
-                        conn = (HttpURLConnection) url.openConnection();
-                        conn.setRequestMethod("POST");
-                        conn.setRequestProperty("Content-Type", "application/json");
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    String jsonInputString = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}";
-                    try(OutputStream os = conn.getOutputStream()) {
-                        byte[] input = jsonInputString.getBytes("utf-8");
-                        os.write(input, 0, input.length);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    try(BufferedReader br = new BufferedReader(
-                            new InputStreamReader(conn.getInputStream(), "utf-8"))) {
-                        StringBuilder response = new StringBuilder();
-                        String responseLine = null;
-                        while ((responseLine = br.readLine()) != null) {
-                            response.append(responseLine.trim());
-                        }
-                        if(response.toString().equals("valid")){
-                            // Login successful
-                            Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
-                            // Navigate to the next screen
-                            switchHomeActivity();
-                        } else {
-                            // Display error message to user
-                            Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (UnsupportedEncodingException e) {
-                        throw new RuntimeException(e);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    // compare login details.
+                    if (loginUsername.equals(userUsername) && loginPassword.equals(userPassword)) {
+                        // Login successful
+                        Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
+                        // Navigate to the next screen
+                        switchHomeActivity();
+                    }else {
+                        //show wrong details entered toast.
+                        Toast.makeText(LoginActivity.this, "Wrong details entered or null!", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -105,9 +75,10 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(switchActivityIntent);
     }
     private void switchHomeActivity() {
-        Intent switchActivityIntent = new Intent(this, HomeActivity.class);
-        switchActivityIntent.putExtra("username",String.valueOf(mUsernameEditText.getText()));
-        startActivity(switchActivityIntent);
+            Intent switchActivityIntent = new Intent(this, DashBroadActivity.class);
+            switchActivityIntent.putExtra("username",String.valueOf(mUsernameEditText.getText()));
+            startActivity(switchActivityIntent);
     }
+
 
 }
