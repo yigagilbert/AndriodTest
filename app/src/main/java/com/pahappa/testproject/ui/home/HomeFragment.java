@@ -27,20 +27,19 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+//        HomeViewModel homeViewModel =
+//                new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
 
-        final TextView textView = binding.textHome;
         projectName = binding.projectName;
         projectStatus = binding.projectStatus;
         projectDescription = binding.projectDescription;
         createBtn = binding.submit;
 
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
