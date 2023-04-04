@@ -16,6 +16,9 @@ import com.google.android.material.button.MaterialButton;
 import com.pahappa.testproject.data.Project;
 import com.pahappa.testproject.data.User;
 import com.pahappa.testproject.databinding.FragmentHomeBinding;
+import com.pahappa.testproject.ui.CustonAdpater;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -27,8 +30,6 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        HomeViewModel homeViewModel =
-//                new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -38,9 +39,9 @@ public class HomeFragment extends Fragment {
         projectStatus = binding.projectStatus;
         projectDescription = binding.projectDescription;
         createBtn = binding.submit;
+        CustonAdpater adpaterList = new CustonAdpater();
 
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        
+
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +49,9 @@ public class HomeFragment extends Fragment {
 
                 Project project = new Project(name,projectStatus.getText().toString(),projectDescription.getText().toString());
 
-                User.addProject(project);
+                User.addNewProject(project);
+
+
                 projectName.getText().clear();
                 projectStatus.getText().clear();
                 projectDescription.getText().clear();

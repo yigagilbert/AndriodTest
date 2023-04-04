@@ -15,15 +15,22 @@
         android:theme="@style/Theme.TestProject"
         tools:targetApi="31">
         <activity
+            android:name=".EditProjectDialog"
+            android:theme="@android:style/Theme.Holo.Dialog"
+            android:exported="false" />
+        <activity
+            android:name=".ItemActivity"
+            android:exported="false"
+            android:label="@string/title_activity_item"
+            android:theme="@style/Theme.TestProject.NoActionBar" />
+        <activity
             android:name=".DashBroadActivity"
             android:exported="false"
             android:label="@string/title_activity_dash_broad" />
         <activity
             android:name=".HomeActivity"
             android:exported="true"
-            android:label="Home Page">
-
-        </activity>
+            android:label="Home Page"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -37,7 +44,7 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/Theme.Material3.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.Material3.Light.NoActionBar" />
     </application>
 
 </manifest>
